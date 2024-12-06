@@ -41,3 +41,12 @@
 2024-12-06 16:02:19.693 | ERROR    | spiders.weibo_hot:setup_driver:75 - 设置 WebDriver 失败: 下载失败，状态码: 404
 2024-12-06 16:02:38.573 | INFO     | __main__:main:14 - 爬虫程序启动
 2024-12-06 16:02:38.574 | ERROR    | spiders.weibo_hot:setup_driver:74 - 设置 WebDriver 失败: ChromeDriver不存在，请下载并放置到: D:\pythonXMJ\spider_project\drivers\chromedriver.exe
+2024-12-06 16:25:10.611 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 16:25:10.611 | INFO     | spiders.weibo_hot:fetch_data:40 - 正在请求URL: https://weibo.com/ajax/statuses/hot_band
+2024-12-06 16:25:54.770 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 16:25:54.771 | INFO     | spiders.weibo_hot:run:129 - 开始爬取微博热搜...
+2024-12-06 16:25:54.771 | INFO     | spiders.weibo_hot:fetch_data:40 - 正在请求URL: https://weibo.com/ajax/statuses/hot_band
+2024-12-06 16:25:57.529 | INFO     | spiders.weibo_hot:run:133 - 成功获取到 52 条热搜数据
+2024-12-06 16:25:57.539 | INFO     | spiders.weibo_hot:save_to_csv:114 - 数据已保存到文件: D:\pythonXMJ\spider_project\data\weibo_hot_20241206_162557.csv
+2024-12-06 16:25:57.541 | INFO     | spiders.weibo_hot:save_to_csv:120 - 数据已保存到JSON文件: D:\pythonXMJ\spider_project\data\weibo_hot_20241206_162557.json
+2024-12-06 16:25:57.542 | INFO     | __main__:main:22 - 微博热搜数据爬取完成

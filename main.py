@@ -13,15 +13,18 @@ def main():
     setup_logging()
     logger.info("爬虫程序启动")
     
-    # 创建并运行微博热搜爬虫
-    spider = WeiboHotSpider()
-    html = spider.fetch_data()
-    data = spider.parse_data(html)
-    if data:
-        spider.save_data(data)
-        logger.info("微博热搜数据爬取完成")
-    else:
-        logger.error("未获取到微博热搜数据")
+    try:
+        # 创建并运行微博热搜爬虫
+        spider = WeiboHotSpider(use_proxy=True)  # 启用代理
+        data = spider.run()  # 使用run方法直接获取数据
+        
+        if data:
+            logger.info("微博热搜数据爬取完成")
+        else:
+            logger.error("未获取到微博热搜数据")
+            
+    except Exception as e:
+        logger.error(f"爬虫运行出错: {e}")
     
 if __name__ == "__main__":
     main()
