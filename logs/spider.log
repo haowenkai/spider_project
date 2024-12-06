@@ -1,0 +1,43 @@
+2024-12-06 15:46:37.273 | INFO     | __main__:main:13 - 爬虫程序启动
+2024-12-06 15:47:25.432 | INFO     | __main__:main:13 - 爬虫程序启动
+2024-12-06 15:47:35.579 | INFO     | __main__:main:13 - 爬虫程序启动
+2024-12-06 15:48:47.838 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:48:48.287 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
+2024-12-06 15:49:06.629 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:49:07.045 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
+2024-12-06 15:50:33.092 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:50:33.093 | INFO     | spiders.weibo_hot:fetch_data:29 - 正在请求URL: https://s.weibo.com/top/summary
+2024-12-06 15:50:33.561 | ERROR    | spiders.weibo_hot:parse_data:64 - 未找到任何热搜数据，HTML结构可能已改变
+2024-12-06 15:50:33.563 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
+2024-12-06 15:50:46.055 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:50:46.055 | INFO     | spiders.weibo_hot:fetch_data:29 - 正在请求URL: https://s.weibo.com/top/summary
+2024-12-06 15:50:46.485 | ERROR    | spiders.weibo_hot:parse_data:64 - 未找到任何热搜数据，HTML结构可能已改变
+2024-12-06 15:50:46.488 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
+2024-12-06 15:51:14.415 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:51:14.416 | INFO     | spiders.weibo_hot:fetch_data:29 - 正在请求URL: https://s.weibo.com/top/summary
+2024-12-06 15:51:14.853 | ERROR    | spiders.weibo_hot:parse_data:64 - 未找到任何热搜数据，HTML结构可能已改变
+2024-12-06 15:51:14.855 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
+2024-12-06 15:52:45.009 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:52:45.009 | INFO     | spiders.weibo_hot:fetch_data:32 - 正在请求URL: https://s.weibo.com/top/summary
+2024-12-06 15:52:48.139 | ERROR    | spiders.weibo_hot:fetch_data:57 - 请求失败: 403 Client Error: Forbidden for url: https://passport.weibo.com/visitor/visitor?entry=miniblog&a=enter&url=https%3A%2F%2Fs.weibo.com%2Ftop%2Fsummary&domain=.weibo.com&sudaref=&ua=php-sso_sdk_client-0.6.29&_rand=1733471568.4905
+2024-12-06 15:52:48.140 | ERROR    | spiders.weibo_hot:parse_data:66 - 没有HTML内容可供解析
+2024-12-06 15:52:48.140 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
+2024-12-06 15:54:01.499 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:54:02.534 | ERROR    | spiders.weibo_hot:setup_driver:36 - 设置 WebDriver 失败: Message: Unable to obtain driver for chrome; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors/driver_location
+
+2024-12-06 15:54:08.277 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:54:08.907 | ERROR    | spiders.weibo_hot:setup_driver:36 - 设置 WebDriver 失败: Message: Unable to obtain driver for chrome; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors/driver_location
+
+2024-12-06 15:55:43.707 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:55:45.109 | ERROR    | spiders.weibo_hot:setup_driver:39 - 设置 WebDriver 失败: Could not reach host. Are you offline?
+2024-12-06 15:57:01.470 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 15:57:01.472 | ERROR    | spiders.weibo_hot:setup_driver:39 - 设置 WebDriver 失败: Message: Unable to obtain driver for chrome; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors/driver_location
+
+2024-12-06 16:00:02.841 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 16:00:04.220 | ERROR    | spiders.weibo_hot:setup_driver:39 - 设置 WebDriver 失败: Could not reach host. Are you offline?
+2024-12-06 16:02:19.441 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 16:02:19.442 | INFO     | spiders.weibo_hot:download_chromedriver:35 - 正在从淘宝镜像下载 ChromeDriver 130.0.6723
+2024-12-06 16:02:19.692 | ERROR    | spiders.weibo_hot:download_chromedriver:52 - 下载 ChromeDriver 失败: 下载失败，状态码: 404
+2024-12-06 16:02:19.693 | ERROR    | spiders.weibo_hot:setup_driver:75 - 设置 WebDriver 失败: 下载失败，状态码: 404
+2024-12-06 16:02:38.573 | INFO     | __main__:main:14 - 爬虫程序启动
+2024-12-06 16:02:38.574 | ERROR    | spiders.weibo_hot:setup_driver:74 - 设置 WebDriver 失败: ChromeDriver不存在，请下载并放置到: D:\pythonXMJ\spider_project\drivers\chromedriver.exe
