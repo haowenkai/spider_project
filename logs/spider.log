@@ -50,3 +50,15 @@
 2024-12-06 16:25:57.539 | INFO     | spiders.weibo_hot:save_to_csv:114 - 数据已保存到文件: D:\pythonXMJ\spider_project\data\weibo_hot_20241206_162557.csv
 2024-12-06 16:25:57.541 | INFO     | spiders.weibo_hot:save_to_csv:120 - 数据已保存到JSON文件: D:\pythonXMJ\spider_project\data\weibo_hot_20241206_162557.json
 2024-12-06 16:25:57.542 | INFO     | __main__:main:22 - 微博热搜数据爬取完成
+2025-01-06 16:42:45.107 | INFO     | __main__:main:14 - 爬虫程序启动
+2025-01-06 16:42:45.108 | INFO     | spiders.weibo_hot:run:129 - 开始爬取微博热搜...
+2025-01-06 16:42:45.108 | INFO     | spiders.weibo_hot:fetch_data:40 - 正在请求URL: https://weibo.com/ajax/statuses/hot_band
+2025-01-06 16:42:49.751 | ERROR    | spiders.weibo_hot:fetch_data:61 - 获取微博热搜失败: HTTPSConnectionPool(host='weibo.com', port=443): Max retries exceeded with url: /ajax/statuses/hot_band (Caused by ProxyError('Unable to connect to proxy', NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000248FDE56840>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。')))
+2025-01-06 16:42:49.752 | ERROR    | spiders.weibo_hot:parse_data:67 - 没有数据可供解析
+2025-01-06 16:42:49.752 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
+2025-01-06 16:50:29.968 | INFO     | __main__:main:14 - 爬虫程序启动
+2025-01-06 16:50:29.969 | INFO     | spiders.weibo_hot:run:129 - 开始爬取微博热搜...
+2025-01-06 16:50:29.969 | INFO     | spiders.weibo_hot:fetch_data:40 - 正在请求URL: https://weibo.com/ajax/statuses/hot_band
+2025-01-06 16:50:34.701 | ERROR    | spiders.weibo_hot:fetch_data:61 - 获取微博热搜失败: HTTPSConnectionPool(host='weibo.com', port=443): Max retries exceeded with url: /ajax/statuses/hot_band (Caused by ProxyError('Unable to connect to proxy', NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002C3683BE6C0>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。')))
+2025-01-06 16:50:34.701 | ERROR    | spiders.weibo_hot:parse_data:67 - 没有数据可供解析
+2025-01-06 16:50:34.702 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
