@@ -2,7 +2,11 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from tkinter.ttk import Style
 from loguru import logger
+import runpy
 from spiders.weibo_hot import WeiboHotSpider
+from spiders.douyin_hot import DouyinHotSpider
+from spiders.toutiao_hot import ToutiaoHotSpider
+from spiders.kuaishou_hot import KuaishouHotSpider
 from datetime import datetime
 
 class WeiboHotGUI:
@@ -15,8 +19,21 @@ class WeiboHotGUI:
         style.theme_use('clam')
         style.configure('TButton', background='lightblue', foreground='black')
 
-        self.start_button = ttk.Button(master, text="开始爬取", command=self.start_crawl)
-        self.start_button.pack(pady=10)
+        # 创建一个 Frame 来放置按钮
+        button_frame = ttk.Frame(master)
+        button_frame.pack(pady=10)
+
+        self.weibo_button = ttk.Button(button_frame, text="爬取微博", command=self.start_weibo_crawl)
+        self.weibo_button.pack(side=tk.LEFT, padx=5)
+
+        self.douyin_button = ttk.Button(button_frame, text="爬取抖音", command=self.start_douyin_crawl)
+        self.douyin_button.pack(side=tk.LEFT, padx=5)
+
+        self.toutiao_button = ttk.Button(button_frame, text="爬取今日头条", command=self.start_toutiao_crawl)
+        self.toutiao_button.pack(side=tk.LEFT, padx=5)
+
+        self.kuaishou_button = ttk.Button(button_frame, text="爬取快手", command=self.start_kuaishou_crawl)
+        self.kuaishou_button.pack(side=tk.LEFT, padx=5)
 
         self.tree = ttk.Treeview(master, columns=('rank', 'title', 'hot_value', 'url', 'crawl_time'), show='headings')
         self.tree.heading('rank', text='排名')
@@ -37,20 +54,71 @@ class WeiboHotGUI:
 
         self.crawled_data = None
 
-    def start_crawl(self):
-        logger.info("开始爬取...")
-        self.start_button.config(state=tk.DISABLED)
+    def start_weibo_crawl(self):
+        logger.info("开始爬取微博热搜...")
+        self.weibo_button.config(state=tk.DISABLED)
         self.save_button.config(state=tk.DISABLED)
         self.tree.delete(*self.tree.get_children())
-        spider = WeiboHotSpider()
-        self.crawled_data = spider.run()
+        self.spider = WeiboHotSpider()
+        self.crawled_data = self.spider.run()
         if self.crawled_data:
-            logger.info(f"爬取完成，共获取 {len(self.crawled_data)} 条数据。")
+            logger.info(f"微博热搜爬取完成，共获取 {len(self.crawled_data)} 条数据。")
             self.display_data()
             self.save_button.config(state=tk.NORMAL)
         else:
-            logger.info("爬取失败。")
-        self.start_button.config(state=tk.NORMAL)
+            logger.info("微博热搜爬取失败。")
+        self.weibo_button.config(state=tk.NORMAL)
+
+    import runpy
+
+    def start_douyin_crawl(self):
+        logger.info("开始爬取抖音热搜...")
+        self.douyin_button.config(state=tk.DISABLED)
+        self.save_button.config(state=tk.DISABLED)
+        self.tree.delete(*self.tree.get_children())
+        try:
+            result = runpy.run_module(f"spiders.douyin_hot", run_name="__main__")
+            if result and 'data' in result:
+                self.crawled_data = result['data']
+                logger.info(f"抖音热搜爬取完成，共获取 {len(self.crawled_data)} 条数据。")
+                self.display_data()
+                self.save_button.config(state=tk.NORMAL)
+            else:
+                logger.info("抖音热搜爬取失败或未返回数据。")
+        except Exception as e:
+            logger.error(f"运行抖音爬虫出错: {e}")
+        finally:
+            self.douyin_button.config(state=tk.NORMAL)
+
+    def start_toutiao_crawl(self):
+        logger.info("开始爬取今日头条热搜...")
+        self.toutiao_button.config(state=tk.DISABLED)
+        self.save_button.config(state=tk.DISABLED)
+        self.tree.delete(*self.tree.get_children())
+        self.spider = ToutiaoHotSpider()
+        self.crawled_data = self.spider.run()
+        if self.crawled_data:
+            logger.info(f"今日头条热搜爬取完成，共获取 {len(self.crawled_data)} 条数据。")
+            self.display_data()
+            self.save_button.config(state=tk.NORMAL)
+        else:
+            logger.info("今日头条热搜爬取失败。")
+        self.toutiao_button.config(state=tk.NORMAL)
+
+    def start_kuaishou_crawl(self):
+        logger.info("开始爬取快手热搜...")
+        self.kuaishou_button.config(state=tk.DISABLED)
+        self.save_button.config(state=tk.DISABLED)
+        self.tree.delete(*self.tree.get_children())
+        self.spider = KuaishouHotSpider()
+        self.crawled_data = self.spider.run()
+        if self.crawled_data:
+            logger.info(f"快手热搜爬取完成，共获取 {len(self.crawled_data)} 条数据。")
+            self.display_data()
+            self.save_button.config(state=tk.NORMAL)
+        else:
+            logger.info("快手热搜爬取失败。")
+        self.kuaishou_button.config(state=tk.NORMAL)
 
     def display_data(self):
         for item in self.crawled_data:
@@ -68,14 +136,13 @@ class WeiboHotGUI:
                 filetypes=filetypes
             )
             if filename:
-                spider = WeiboHotSpider()
                 if filename.endswith(".csv"):
-                    if spider.save_to_csv(self.crawled_data, filename):
+                    if hasattr(self, 'spider') and hasattr(self.spider, 'save_to_csv') and self.spider.save_to_csv(self.crawled_data, filename):
                         messagebox.showinfo("保存成功", f"数据已保存到 {filename}")
                     else:
                         messagebox.showerror("保存失败", "保存CSV文件失败，请查看日志。")
                 elif filename.endswith(".json"):
-                    if spider.save_to_json(self.crawled_data, filename):
+                    if hasattr(self, 'spider') and hasattr(self.spider, 'save_to_json') and self.spider.save_to_json(self.crawled_data, filename):
                         messagebox.showinfo("保存成功", f"数据已保存到 {filename}")
                     else:
                         messagebox.showerror("保存失败", "保存JSON文件失败，请查看日志。")

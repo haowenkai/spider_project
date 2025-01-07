@@ -62,3 +62,18 @@
 2025-01-06 16:50:34.701 | ERROR    | spiders.weibo_hot:fetch_data:61 - 获取微博热搜失败: HTTPSConnectionPool(host='weibo.com', port=443): Max retries exceeded with url: /ajax/statuses/hot_band (Caused by ProxyError('Unable to connect to proxy', NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002C3683BE6C0>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。')))
 2025-01-06 16:50:34.701 | ERROR    | spiders.weibo_hot:parse_data:67 - 没有数据可供解析
 2025-01-06 16:50:34.702 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
+2025-01-07 09:54:25.432 | INFO     | __main__:main:14 - 爬虫程序启动
+2025-01-07 09:54:25.433 | INFO     | spiders.weibo_hot:run:263 - 开始爬取微博热搜...
+2025-01-07 09:54:25.433 | INFO     | spiders.weibo_hot:fetch_data:174 - 正在请求URL: https://weibo.com/ajax/statuses/hot_band
+2025-01-07 09:54:28.718 | ERROR    | spiders.weibo_hot:fetch_data:195 - 获取微博热搜失败: HTTPSConnectionPool(host='weibo.com', port=443): Max retries exceeded with url: /ajax/statuses/hot_band (Caused by ProxyError('Unable to connect to proxy', NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x0000024742200F20>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。')))
+2025-01-07 09:54:28.718 | ERROR    | spiders.weibo_hot:parse_data:201 - 没有数据可供解析
+2025-01-07 09:54:28.718 | ERROR    | __main__:main:24 - 未获取到微博热搜数据
+2025-01-07 10:01:16.797 | INFO     | __main__:main:27 - 爬虫程序启动
+2025-01-07 10:01:16.798 | INFO     | __main__:run_spider:13 - 开始运行微博热搜爬虫
+2025-01-07 10:01:16.798 | INFO     | spiders.weibo_hot:run:261 - 开始爬取微博热搜...
+2025-01-07 10:01:16.798 | INFO     | spiders.weibo_hot:fetch_data:171 - 正在请求URL: https://weibo.com/ajax/statuses/hot_band
+2025-01-07 10:01:21.560 | ERROR    | spiders.weibo_hot:fetch_data:193 - 获取微博热搜失败: HTTPSConnectionPool(host='weibo.com', port=443): Max retries exceeded with url: /ajax/statuses/hot_band (Caused by ProxyError('Unable to connect to proxy', NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001923B12A2A0>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。')))
+2025-01-07 10:01:21.562 | ERROR    | spiders.weibo_hot:parse_data:199 - 没有数据可供解析
+2025-01-07 10:01:21.562 | ERROR    | __main__:run_spider:20 - 未获取到微博热搜数据
+2025-01-07 10:02:56.675 | INFO     | __main__:main:27 - 爬虫程序启动
+2025-01-07 10:12:39.218 | INFO     | __main__:main:13 - 爬虫程序启动

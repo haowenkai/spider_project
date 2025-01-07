@@ -20,15 +20,14 @@ class WeiboHotSpider:
         
     def _get_proxy(self):
         """获取代理IP"""
-        try:
-            # 这里可以替换为您的代理获取方式
-            proxy = "http://127.0.0.1:7890"  # 示例代理地址
+        proxy = settings.PROXY
+        if proxy:
             return {
                 'http': proxy,
                 'https': proxy
             }
-        except Exception as e:
-            logger.error(f"获取代理失败: {e}")
+        else:
+            logger.warning("未配置代理 IP")
             return None
         
     def fetch_data(self):
@@ -143,15 +142,13 @@ import random
 import json
 from pathlib import Path
 
+from config import settings
+
 class WeiboHotSpider:
     def __init__(self, use_proxy=False):
-        self.url = "https://weibo.com/ajax/statuses/hot_band"
-        self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
-            'Accept': 'application/json, text/plain, */*',
-            'Accept-Language': 'zh-CN,zh;q=0.9',
-            'Referer': 'https://weibo.com/hot/search',
-        }
+        self.url = settings.WEIBO_HOT_URL
+        self.headers = settings.DEFAULT_HEADERS
+        self.headers['User-Agent'] = random.choice(settings.DEFAULT_USER_AGENTS)
         self.use_proxy = use_proxy
         self.proxies = self._get_proxy() if use_proxy else None
         
@@ -174,13 +171,14 @@ class WeiboHotSpider:
             logger.info(f"正在请求URL: {self.url}")
             
             # 添加随机延迟
-            time.sleep(random.uniform(1, 3))
+            min_delay, max_delay = settings.REQUEST_DELAY_RANGE
+            time.sleep(random.uniform(min_delay, max_delay))
             
             response = requests.get(
                 self.url,
                 headers=self.headers,
                 proxies=self.proxies if self.use_proxy else None,
-                timeout=10
+                timeout=settings.REQUEST_TIMEOUT
             )
             
             if response.status_code == 200:

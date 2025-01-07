@@ -28,3 +28,6 @@ LOG_PATH = "logs/spider.log"
 
 # 数据存储配置
 DATA_PATH = "data/"
+
+# 代理配置
+PROXY = "http://127.0.0.1:7890"
