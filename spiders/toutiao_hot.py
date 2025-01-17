@@ -1,71 +1,78 @@
 from loguru import logger
-from spiders.base_spider import BaseSpider
+from .base_spider import BaseSpider
+from datetime import datetime
+import json
+import pandas as pd
 
 class ToutiaoHotSpider(BaseSpider):
-    def __init__(self, use_proxy=False):
-        super().__init__(use_proxy)
-        self.base_url = "https://tophub.today/n/mproPpoq6O"  # 今日头条热榜
+    def __init__(self):
+        super().__init__(name="今日头条热搜")
+        self.base_url = "https://tophub.today/n/KqndgxeLl9"
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         }
+        self.current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-    def fetch_data(self):
-        try:
-            response = self.get(self.base_url, headers=self.headers)
-            if response and response.status_code == 200:
-                return response.text
-            else:
-                logger.error(f"请求失败，状态码: {response.status_code if response else 'N/A'}")
-                return None
-        except Exception as e:
-            logger.error(f"请求出错: {e}")
-            return None
+    def start_requests(self):
+        logger.info("开始爬取今日头条热搜...")
+        response = super().make_request(self.base_url, headers=self.headers)
+        if response and response.status_code == 200:
+            self.parse(response)
+        else:
+            logger.error(f"请求失败，状态码: {response.status_code if response else 'N/A'}")
 
-    def parse(self, html):
+    def parse(self, response):
         logger.info("开始解析今日头条热搜数据")
+        html = response.text
         hot_items = []
         from bs4 import BeautifulSoup
         soup = BeautifulSoup(html, 'html.parser')
-        items = soup.find_all('div', class_='item')  # 假设每个热搜项都在一个 class 为 'item' 的 div 中
-        for index, item in enumerate(items):
-            rank_element = item.find('div', class_='index') # 假设排名在 class 为 'index' 的 div 中
-            rank = rank_element.text.strip() if rank_element else str(index + 1)
-            title_element = item.find('a')  # 假设标题在 a 标签中
+        
+        # 移除广告和不相关的元素
+        for div in soup.find_all('div', class_='slot-container'):
+            div.decompose()
+
+        items = soup.find_all('tr', class_='data-row')
+        for item in items:
+            rank_element = item.find('td', class_='al')
+            rank = rank_element.text.strip() if rank_element else 'N/A'
+            
+            title_element = item.find('a')
             title = title_element.text.strip() if title_element else 'No Title'
-            link_element = "https://tophub.today" + title_element['href'] if title_element and 'href' in title_element.attrs else None # 构建完整链接
-            hot_value_element = item.find('div', class_='detail-hot')  # 假设热度值在 class 为 'detail-hot' 的 div 中
+            url = 'https://tophub.today' + title_element['href'] if title_element and 'href' in title_element.attrs else None
+            
+            hot_value_element = item.find('td', class_='clicks')
             hot_value = hot_value_element.text.strip() if hot_value_element else 'N/A'
+            
             hot_items.append({
                 'rank': rank,
                 'title': title,
                 'hot_value': hot_value,
-                'url': link_element,
+                'url': url,
                 'crawl_time': self.current_time
             })
         logger.info(f"找到 {len(hot_items)} 个热搜项")
+        self.save_data(hot_items)
         return hot_items
 
     def save_data(self, data):
-        filename = f"toutiao_hot_{self.current_time}.json"
+        filename = f"data/toutiao_hot_{self.current_time}.json"
         self._save_json(data, filename)
-        filename_csv = f"toutiao_hot_{self.current_time}.csv"
+        filename_csv = f"data/toutiao_hot_{self.current_time}.csv"
         self._save_csv(data, filename_csv)
 
+    def _save_json(self, data, filename):
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+        logger.info(f"数据已保存到 JSON 文件: {filename}")
+
+    def _save_csv(self, data, filename_csv):
+        df = pd.DataFrame(data)
+        df.to_csv(filename_csv, encoding='utf-8-sig', index=False)
+        logger.info(f"数据已保存到 CSV 文件: {filename_csv}")
+
     def run(self):
-        logger.info("开始爬取今日头条热搜...")
-        html_data = self.fetch_data()
-        if html_data:
-            parsed_data = self.parse_data(html_data)
-            if parsed_data:
-                self.save_data(parsed_data)
-                logger.info(f"成功获取到 {len(parsed_data)} 条热搜数据")
-                return parsed_data
-            else:
-                logger.error("解析今日头条热搜数据失败")
-                return None
-        else:
-            logger.error("获取今日头条热搜HTML失败")
-            return None
+        self.start_requests()
 
 if __name__ == '__main__':
     spider = ToutiaoHotSpider()
